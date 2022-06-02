@@ -4,17 +4,22 @@ import PropTypes from "prop-types";
 import axios from "../helpers/axios";
 import resizeImageUrl from "../helpers/resizeImageUrl";
 
-const ImageList = ({ listCount }) => {
+const ImagesList = ({ listCount }) => {
   const [imageList, setImageList] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const apiUrl = "/v2/list?page=1&limit=";
 
   useEffect(() => {
-    console.log(apiUrl + listCount);
-    axios.get(apiUrl + listCount).then((data) => {
-      setImageList(data);
-      setLoading(false);
-    });
+    axios
+      .get("/v2/list", {
+        params: {
+          page: 1,
+          limit: listCount,
+        },
+      })
+      .then((data) => {
+        setImageList(data);
+        setLoading(false);
+      });
   }, [listCount]);
 
   if (isLoading) {
@@ -39,7 +44,7 @@ const ImageList = ({ listCount }) => {
     </>
   );
 };
-ImageList.propTypes = {
+ImagesList.propTypes = {
   listCount: PropTypes.number.isRequired,
 };
-export default ImageList;
+export default ImagesList;

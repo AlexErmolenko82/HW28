@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import ImageList from "./components/ImageList";
+import ImagesList from "./components/ImagesList";
 import Button from "./components/Button";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="container">
       <h1>Image gallery</h1>
-      <ImageList listCount={listCount} />
+      <ImagesList listCount={listCount} />
       <Button onClick={handleClick} />
     </div>
   );
