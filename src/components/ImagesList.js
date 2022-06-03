@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "../helpers/axios";
+import * as React from "react";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import resizeImageUrl from "../helpers/resizeImageUrl";
 
 const ImagesList = () => {
@@ -32,13 +35,11 @@ const ImagesList = () => {
 
   const dynamicList = imagesList.map(({ id, download_url }) => (
     <li key={id}>
-      <a href={download_url} target="_blank">
-        <img
-          src={resizeImageUrl(download_url, 100)}
-          alt={download_url}
-          height="100"
-        />
-      </a>
+      <img
+        src={resizeImageUrl(download_url, 100)}
+        alt={download_url}
+        height="100"
+      />
     </li>
   ));
 
@@ -49,9 +50,9 @@ const ImagesList = () => {
         {dynamicList}
       </ul>
       {isLoading ? <p>Loading...</p> : ""}
-      <button type="button" onClick={handleClick}>
+      <Button variant="contained" onClick={handleClick}>
         Show more...
-      </button>
+      </Button>
     </>
   );
 };
