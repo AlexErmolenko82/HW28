@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-
 import axios from "../helpers/axios";
-
 import resizeImageUrl from "../helpers/resizeImageUrl";
 
 const ImagesList = () => {
@@ -13,11 +11,12 @@ const ImagesList = () => {
   const handleClick = () => {
     setStaticList(staticList.concat(dynamicList));
     setPageCount(pageCount + 1);
-    console.log("staticList", staticList);
+    // console.log("staticList", staticList);
+    setLoading(true);
   };
 
   useEffect(() => {
-    console.log("page:", pageCount, "limit: 10");
+    // console.log("page:", pageCount, "limit: 10");
     axios
       .get("/v2/list", {
         params: {
@@ -30,10 +29,6 @@ const ImagesList = () => {
         setLoading(false);
       });
   }, [pageCount]);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
   let dynamicList = imagesList.map(({ id, download_url }) => (
     <li key={id}>
@@ -51,6 +46,7 @@ const ImagesList = () => {
         {staticList}
         {dynamicList}
       </ol>
+      {isLoading ? <p>Loading...</p> : ""}
       <button type="button" onClick={handleClick}>
         Show more...
       </button>
