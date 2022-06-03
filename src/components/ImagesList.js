@@ -5,22 +5,22 @@ import resizeImageUrl from "../helpers/resizeImageUrl";
 const ImagesList = () => {
   const [imagesList, setImagesList] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [pageCount, setPageCount] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [staticList, setStaticList] = useState([]);
 
   const handleClick = () => {
     setStaticList(staticList.concat(dynamicList));
-    setPageCount(pageCount + 1);
-    // console.log("staticList", staticList);
+    imagesList.length = 0;
+    setPageNumber(pageNumber + 1);
     setLoading(true);
   };
 
   useEffect(() => {
-    // console.log("page:", pageCount, "limit: 10");
+    console.log("page:", pageNumber, "limit: 10");
     axios
       .get("/v2/list", {
         params: {
-          page: pageCount,
+          page: pageNumber,
           limit: 10,
         },
       })
@@ -28,7 +28,7 @@ const ImagesList = () => {
         setImagesList(data);
         setLoading(false);
       });
-  }, [pageCount]);
+  }, [pageNumber]);
 
   let dynamicList = imagesList.map(({ id, download_url }) => (
     <li key={id}>
@@ -42,10 +42,10 @@ const ImagesList = () => {
 
   return (
     <>
-      <ol className="list">
+      <ul className="list">
         {staticList}
         {dynamicList}
-      </ol>
+      </ul>
       {isLoading ? <p>Loading...</p> : ""}
       <button type="button" onClick={handleClick}>
         Show more...
