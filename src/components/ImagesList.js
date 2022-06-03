@@ -10,7 +10,7 @@ const ImagesList = () => {
 
   const handleClick = () => {
     setStaticList(staticList.concat(dynamicList));
-    imagesList.length = 0;
+    setImagesList([]);
     setPageNumber(pageNumber + 1);
     setLoading(true);
   };
@@ -30,13 +30,15 @@ const ImagesList = () => {
       });
   }, [pageNumber]);
 
-  let dynamicList = imagesList.map(({ id, download_url }) => (
+  const dynamicList = imagesList.map(({ id, download_url }) => (
     <li key={id}>
-      <img
-        src={resizeImageUrl(download_url, 100)}
-        alt={download_url}
-        height="100"
-      />
+      <a href={download_url} target="_blank">
+        <img
+          src={resizeImageUrl(download_url, 100)}
+          alt={download_url}
+          height="100"
+        />
+      </a>
     </li>
   ));
 
