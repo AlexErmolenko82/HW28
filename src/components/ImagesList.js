@@ -1,50 +1,61 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 
 import axios from "../helpers/axios";
+
 import resizeImageUrl from "../helpers/resizeImageUrl";
 
-const ImagesList = ({ listCount }) => {
-  const [imageList, setImageList] = useState([]);
+const ImagesList = () => {
+  const [imagesList, setImagesList] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [pageCount, setPageCount] = useState(1);
+  const [staticList, setStaticList] = useState([]);
+
+  const handleClick = () => {
+    setStaticList(staticList.concat(dynamicList));
+    setPageCount(pageCount + 1);
+    console.log("staticList", staticList);
+  };
 
   useEffect(() => {
+    console.log("page:", pageCount, "limit: 10");
     axios
       .get("/v2/list", {
         params: {
-          page: 1,
-          limit: listCount,
+          page: pageCount,
+          limit: 10,
         },
       })
       .then((data) => {
-        setImageList(data);
+        setImagesList(data);
         setLoading(false);
       });
-  }, [listCount]);
+  }, [pageCount]);
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
+  let dynamicList = imagesList.map(({ id, download_url }) => (
+    <li key={id}>
+      <img
+        src={resizeImageUrl(download_url, 100)}
+        alt={download_url}
+        height="100"
+      />
+    </li>
+  ));
+
   return (
     <>
-      <ul className="list">
-        {imageList.map(({ id, download_url }) => (
-          <li key={id}>
-            <a href={download_url} target="_blank">
-              <img
-                src={resizeImageUrl(download_url, 100)}
-                alt={download_url}
-                height="100"
-              />
-            </a>
-          </li>
-        ))}
-      </ul>
+      <ol className="list">
+        {staticList}
+        {dynamicList}
+      </ol>
+      <button type="button" onClick={handleClick}>
+        Show more...
+      </button>
     </>
   );
 };
-ImagesList.propTypes = {
-  listCount: PropTypes.number.isRequired,
-};
+
 export default ImagesList;
