@@ -3,7 +3,6 @@ import axios from "../helpers/axios";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import resizeImageUrl from "../helpers/resizeImageUrl";
-let htmlList = [];
 
 const ImagesList = () => {
   const [imagesList, setImagesList] = useState([]);
@@ -11,13 +10,11 @@ const ImagesList = () => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const handleClick = () => {
-    setImagesList([]);
     setPageNumber(pageNumber + 1);
-    setLoading(true);
   };
 
   useEffect(() => {
-    console.log("page:", pageNumber, "limit: 10");
+    setLoading(true);
     axios
       .get("/v2/list", {
         params: {
@@ -26,27 +23,25 @@ const ImagesList = () => {
         },
       })
       .then((data) => {
-        setImagesList(data);
+        setImagesList((newImageList) => [...imagesList, ...data]);
         setLoading(false);
       });
   }, [pageNumber]);
 
-  htmlList = [
-    ...htmlList,
-    ...imagesList.map(({ id, download_url }) => (
-      <li key={id}>
-        <img
-          src={resizeImageUrl(download_url, 100)}
-          alt={download_url}
-          height="100"
-        />
-      </li>
-    )),
-  ];
-
   return (
     <>
-      <ul className="list">{htmlList}</ul>
+      <h1>Image Gallery</h1>
+      <ul className="list">
+        {imagesList.map(({ id, download_url }) => (
+          <li key={id}>
+            <img
+              src={resizeImageUrl(download_url, 100)}
+              alt={download_url}
+              height="100"
+            />
+          </li>
+        ))}
+      </ul>
       {isLoading ? (
         <Button variant="contained">loading...</Button>
       ) : (
