@@ -1,17 +1,174 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400&display=swap');
+
+body {
+background-image: url("./images/bg-image.png");
+    background-size: auto;
+}
 
 .container {
     margin: auto;
-    width: 500px;
+    width: 960px;
     text-align: center;
-    font-family: "Nunito Sans", sans-serif;
-    color: blue;
+    font-family: "Roboto", sans-serif;
+    color: white;
+    cursor: default;
+}
+
+.selected-day{
+    width: 400px;
+    height: 250px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-selected-day{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+
 }
 
 .list {
     list-style-type: none;    
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
+    display: flex; 
+    justify-content: center;
     padding: 0;
+}
+.list-item {
+    cursor: pointer;
+    background-color:  #a7599b;
+    width: 130px;
+    height: 200px;
+
+    padding: 1px;
+}
+.list-item:hover{
+    background-color:  #d69ccd;
+}
+
+.active{
+    background-color:  #d69ccd;
+}
+
+.cloudy:after {
+    position: relative;
+    left: 34px;
+    bottom: 120px;
+    content: "";
+    display: block;
+    height: 37px;
+    width: 62px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("./images/weather-icon-cloudy.png");
+}
+
+.sunny:after {
+    position: relative;
+    left: 46px;
+    bottom: 120px;
+    content: "";
+    display: block;
+    width: 37px;
+    height: 37px;
+    background-image: url("./images/weather-icon-sunny.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.rainy:after {
+    position: relative;
+    left: 44px;
+    bottom: 120px;
+    content: "";
+    display: block;
+    height: 37px;
+    width: 43px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("./images/weather-icon-rainy.png");
+}
+
+.rainy-selected:after {
+    position: relative;
+    left: 90px;
+    bottom: 0px;
+    content: "";
+    display: block;
+    height: 80px;
+    width: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("./images/weather-icon-rainy.png");
+}
+
+.sunny-selected:after {
+    position: relative;
+    left: 90px;
+    bottom: 0px;
+    content: "";
+    display: block;
+    height: 80px;
+    width: 100px;
+    background-image: url("./images/weather-icon-sunny.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.cloudy-selected:after {
+    position: relative;
+    left: 90px;
+    bottom: 0px;
+    content: "";
+    display: block;
+    height: 80px;
+    width: 100px;
+    background-image: url("./images/weather-icon-cloudy.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+
+.humidity:before {
+    content: "";
+    display: inline-block;
+    width: 19px;
+    height: 28px;
+    background-image: url("./images/humidity.png");
+    margin-right: 6px;
+}
+
+.rain_probability:before {
+    content: "";
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    background-image: url("./images/rain_probability.png");
+    margin: 0 6px 0 18px;
+}
+
+.small-text {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+
+.large-text {
+    text-align: right;
+    margin: 8px 0;
+    font-size: 30px;
+    font-weight: 100;
+}
+
+.extra-large-text {
+    font-size: 120px;
+    font-weight: 200;
+    margin: 0;
+}
+
+.large-text-temp{
+    margin-top: 70px;
+    font-size: 30px;
+    font-weight: 100;
 }
