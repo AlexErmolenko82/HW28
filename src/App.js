@@ -1,10 +1,10 @@
 import "./App.css";
-import ImagesList from "./components/ImagesList";
+import WeatherForecast from "./components/WeatherForecast";
 
 function App() {
   return (
     <div className="container">
-      <ImagesList />
+      <WeatherForecast />
     </div>
   );
 }

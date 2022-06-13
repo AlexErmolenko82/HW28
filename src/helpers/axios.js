@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://picsum.photos",
+  baseURL: "https://lab.lectrum.io",
 });
 
 instance.interceptors.response.use(function (response) {
