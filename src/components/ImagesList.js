@@ -48,7 +48,7 @@ const ImagesList = () => {
     <>
       <ul className="list">{htmlList}</ul>
       {isLoading ? (
-        <Button variant="contained">loading...</Button>
+        <Button variant="contained">Loading...</Button>
       ) : (
         <Button variant="contained" onClick={handleClick}>
           show more
